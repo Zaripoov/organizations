@@ -1,5 +1,6 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -16,14 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Пополнить баланс', ['history-of-balance/up', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Списывать баланс', ['history-of-balance/down', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -35,5 +38,32 @@ $this->params['breadcrumbs'][] = $this->title;
             'sum',
         ],
     ]) ?>
+
+
+    <?= GridView::widget([
+        'dataProvider' => $historyOfBalance,
+        //'filterModel' => $searchHistoryOfBalance,
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            if($model->sum > 0){
+                return ['class' => 'bg-success'];
+            }else{
+                return ['class' => 'bg-danger'];
+            }
+        },
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'sum',
+            'description',
+            //'created_at',
+            [
+                'attribute'=>'created_at',
+
+                'content'=>function($model){
+                    return date( 'd.m.Y H:i:s', $model->created_at );
+                }
+            ],
+        ],
+    ]); ?>
 
 </div>

@@ -2,8 +2,11 @@
 
 namespace frontend\controllers;
 
+use frontend\models\HistoryOfBalance;
+use frontend\models\HistoryOfBalanceSearch;
 use frontend\models\Organizations;
 use frontend\models\OrganizationsSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,8 +58,15 @@ class OrganizationsController extends Controller
      */
     public function actionView($id)
     {
+        $historyOfBalance = new ActiveDataProvider([
+            'query' => HistoryOfBalance::find()->where(['organization_id' => $id])->orderBy(['id' => SORT_DESC])
+
+        ]);
+
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'historyOfBalance' => $historyOfBalance,
         ]);
     }
 
