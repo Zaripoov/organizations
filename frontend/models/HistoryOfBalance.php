@@ -51,7 +51,7 @@ class HistoryOfBalance extends \yii\db\ActiveRecord
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at']
                 ],
-                'value' => new Expression('CURRENT_TIMESTAMP()'),
+                //'value' => new Expression('CURRENT_TIMESTAMP()'),
             ],
         ];
     }

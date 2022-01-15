@@ -6,9 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\HistoryOfBalance */
 
-$this->title = 'Create History Of Balance';
-$this->params['breadcrumbs'][] = ['label' => 'History Of Balances', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Пополнить баланс';
+
 ?>
 <div class="history-of-balance-create">
 
